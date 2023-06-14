@@ -3,10 +3,10 @@ package logger
 import (
 	"context"
 	"errors"
+	_time "github.com/wcs1010270451/helpers/time"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
-	_time "helpers/time"
 	"path/filepath"
 	"runtime"
 	"strings"

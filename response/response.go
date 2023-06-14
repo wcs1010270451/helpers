@@ -2,8 +2,8 @@ package response
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wcs1010270451/helpers/logger"
 	"gorm.io/gorm"
-	"helpers/logger"
 	"net/http"
 )
 

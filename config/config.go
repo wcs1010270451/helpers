@@ -3,7 +3,7 @@ package config
 import (
 	"github.com/spf13/cast"
 	viperlib "github.com/spf13/viper" // 自定义包名，避免与内置 viper 实例冲突
-	_type "helpers/type"
+	_type "github.com/wcs1010270451/helpers/type"
 	"os"
 )
 

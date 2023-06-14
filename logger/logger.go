@@ -3,11 +3,11 @@ package logger
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/wcs1010270451/helpers/app"
+	_time "github.com/wcs1010270451/helpers/time"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"helpers/app"
-	_time "helpers/time"
 	"os"
 	"strings"
 	"time"
