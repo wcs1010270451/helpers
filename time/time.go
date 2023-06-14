@@ -5,6 +5,15 @@ import (
 	"time"
 )
 
+// TimeNowInTimezone 获取当前时间，支持时区
+func TimeNowInTimezone() time.Time {
+	chinaTimezone, _ := time.LoadLocation("Asia/Shanghai")
+	fmt.Println(chinaTimezone)
+	nowTime := time.Now().In(chinaTimezone)
+	fmt.Println(nowTime)
+	return nowTime
+}
+
 // StringTimeAddDay 时间加n天
 func StringTimeAddDay(timeStr string, days int) (string, error) {
 	format := "2006-01-02"
