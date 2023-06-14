@@ -1,10 +1,11 @@
 package time
 
 import (
+	"fmt"
 	"time"
 )
 
-// 时间加n天
+// StringTimeAddDay 时间加n天
 func StringTimeAddDay(timeStr string, days int) (string, error) {
 	format := "2006-01-02"
 	// 解析字符串为time.Time类型
@@ -19,4 +20,9 @@ func StringTimeAddDay(timeStr string, days int) (string, error) {
 	// 格式化回字符串
 	newStrTime := parsedTime.Format(format)
 	return newStrTime, nil
+}
+
+// MicrosecondsStr 将 time.Duration 类型（nano seconds 为单位）输出为小数点后 3 位的 ms （microsecond 毫秒，千分之一秒）
+func MicrosecondsStr(elapsed time.Duration) string {
+	return fmt.Sprintf("%.3fms", float64(elapsed.Nanoseconds())/1e6)
 }
