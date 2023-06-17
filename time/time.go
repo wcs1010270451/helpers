@@ -8,9 +8,7 @@ import (
 // TimeNowInTimezone 获取当前时间，支持时区
 func TimeNowInTimezone() time.Time {
 	chinaTimezone, _ := time.LoadLocation("Asia/Shanghai")
-	fmt.Println(chinaTimezone)
 	nowTime := time.Now().In(chinaTimezone)
-	fmt.Println(nowTime)
 	return nowTime
 }
 
