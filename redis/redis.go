@@ -155,18 +155,24 @@ func (rds RedisClient) Decrement(parameters ...interface{}) bool {
 	return true
 }
 
-func (rds *RedisClient) HSet(key string, values map[string]interface{}) bool {
-	var n int
+func (rds RedisClient) HSet(key string, values map[string]interface{}, expiration time.Duration) (bool, error) {
 	for k, v := range values {
 		err := rds.Client.HSet(rds.Context, key, k, v).Err()
 		if err != nil {
-			logger.Error(err.Error())
-			continue
+			return false, err
 		}
-		n++
 	}
-	if n > 0 {
-		return true
+	err := rds.Client.Expire(rds.Context, key, expiration).Err()
+	if err != nil {
+		logger.Error(err.Error())
 	}
-	return false
+	return true, nil
+}
+
+func (rds RedisClient) HGet(key, filed string) (string, error) {
+	return rds.Client.HGet(rds.Context, key, filed).Result()
+}
+
+func (rds RedisClient) HGetAll(key string) (map[string]string, error) {
+	return rds.Client.HGetAll(rds.Context, key).Result()
 }
