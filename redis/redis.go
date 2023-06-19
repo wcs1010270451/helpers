@@ -2,7 +2,6 @@ package redis
 
 import (
 	"context"
-	"fmt"
 	redis "github.com/go-redis/redis/v8"
 	"github.com/wcs1010270451/helpers/logger"
 	"sync"
@@ -156,8 +155,18 @@ func (rds RedisClient) Decrement(parameters ...interface{}) bool {
 	return true
 }
 
-func (rds *RedisClient) HSet(key string, values ...interface{}) bool {
-	cmd := rds.Client.HSet(rds.Context, key, values)
-	fmt.Println(cmd)
-	return true
+func (rds *RedisClient) HSet(key string, values map[string]interface{}) bool {
+	var n int
+	for k, v := range values {
+		err := rds.Client.HSet(rds.Context, key, k, v).Err()
+		if err != nil {
+			logger.Error(err.Error())
+			continue
+		}
+		n++
+	}
+	if n > 0 {
+		return true
+	}
+	return false
 }
