@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-func DoPost(url string, data []byte) ([]byte, error) {
+func DoPut(url string, data []byte) ([]byte, error) {
 	// 创建一个http客户端
 	client := &http.Client{}
 
-	// 创建一个POST请求
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
+	// 创建一个 PUT 请求
+	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
 	}
@@ -31,6 +31,5 @@ func DoPost(url string, data []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return body, nil
 }

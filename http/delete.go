@@ -6,12 +6,19 @@ import (
 	"net/http"
 )
 
-func DoPost(url string, data []byte) ([]byte, error) {
+func DoDelete(url string, data []byte) ([]byte, error) {
 	// 创建一个http客户端
 	client := &http.Client{}
 
-	// 创建一个POST请求
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
+	var buffer *bytes.Buffer
+	if data != nil {
+		buffer = bytes.NewBuffer(data)
+	} else {
+		buffer = nil
+	}
+
+	// 创建一个 DELETE 请求
+	req, err := http.NewRequest("DELETE", url, buffer)
 	if err != nil {
 		return nil, err
 	}
