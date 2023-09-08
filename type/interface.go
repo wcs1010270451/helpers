@@ -1,6 +1,10 @@
 package _type
 
-import "reflect"
+import (
+	"errors"
+	"fmt"
+	"reflect"
+)
 
 // Empty 判空函数
 func Empty(val interface{}) bool {
@@ -33,4 +37,52 @@ func ToString(obj interface{}) string {
 		return str
 	}
 	return ""
+}
+
+// 转浮点数
+func ToFloat(obj interface{}) (float64, error) {
+	switch v := obj.(type) {
+	case float32:
+		return float64(v), nil
+	case float64:
+		return v, nil
+	default:
+		return 0, errors.New(fmt.Sprintf("Expected a float value but got %T", v))
+	}
+}
+
+// 转int
+func ToInt(obj interface{}) (int, error) {
+	switch v := obj.(type) {
+	case int:
+		return v, nil
+	default:
+		return 0, errors.New(fmt.Sprintf("Expected an integer value but got %T", v))
+	}
+}
+
+// 转map
+func ToMap(obj interface{}) (map[string]interface{}, error) {
+	if reflect.TypeOf(obj).Kind() != reflect.Map {
+		return nil, errors.New("obj is not a type of map")
+	}
+
+	//执行类型断言以确保输入确实是一个映射
+	result := make(map[string]interface{})
+	valueOf := reflect.ValueOf(obj)
+	for _, key := range valueOf.MapKeys() {
+		result[key.String()] = valueOf.MapIndex(key).Interface()
+	}
+
+	return result, nil
+}
+
+// 转布尔值
+func ToBool(obj interface{}) (bool, error) {
+	switch v := obj.(type) {
+	case bool:
+		return v, nil
+	default:
+		return false, errors.New(fmt.Sprintf("Expected a boolean value but got  %T", v))
+	}
 }

@@ -1,33 +1,14 @@
 package http
 
 import (
-	"bytes"
 	"io"
 	"net/http"
 )
 
-func DoGet(url string, data []byte) ([]byte, error) {
-	// 创建一个http客户端
-	client := &http.Client{}
-
-	var buffer *bytes.Buffer
-	if data != nil {
-		buffer = bytes.NewBuffer(data)
-	} else {
-		buffer = nil
-	}
-
+func DoGet(url string) ([]byte, error) {
 	// 创建一个 GET 请求
-	req, err := http.NewRequest("GET", url, buffer)
-	if err != nil {
-		return nil, err
-	}
+	resp, err := http.Get(url)
 
-	// 设置请求头
-	req.Header.Set("Content-Type", "application/json")
-
-	// 发送请求并接收响应
-	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
