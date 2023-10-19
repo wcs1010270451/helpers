@@ -1,6 +1,8 @@
 package http
 
 import (
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 )
@@ -19,6 +21,8 @@ func DoGet(url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	if resp.StatusCode != http.StatusOK {
+		return body, errors.New(fmt.Sprintf("状态码为 %d", resp.StatusCode))
+	}
 	return body, nil
 }

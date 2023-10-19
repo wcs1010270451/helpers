@@ -2,6 +2,8 @@ package http
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 )
@@ -38,6 +40,8 @@ func DoDelete(url string, data []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	if resp.StatusCode != http.StatusOK {
+		return body, errors.New(fmt.Sprintf("状态码为 %d", resp.StatusCode))
+	}
 	return body, nil
 }

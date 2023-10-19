@@ -2,6 +2,8 @@ package http
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"io"
 	"net/http"
 )
@@ -30,6 +32,9 @@ func DoPut(url string, data []byte) ([]byte, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		return body, errors.New(fmt.Sprintf("状态码为 %d", resp.StatusCode))
 	}
 	return body, nil
 }
