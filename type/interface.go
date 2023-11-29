@@ -86,3 +86,18 @@ func ToBool(obj interface{}) (bool, error) {
 		return false, errors.New(fmt.Sprintf("Expected a boolean value but got  %T", v))
 	}
 }
+
+// 转数组
+func ToSlice(obj interface{}) ([]interface{}, error) {
+	val := reflect.ValueOf(obj)
+	if val.Kind() == reflect.Slice {
+		var result []interface{}
+		for i := 0; i < val.Len(); i++ {
+			elem := val.Index(i)
+			result = append(result, elem.Interface())
+		}
+		return result, nil
+	} else {
+		return nil, errors.New("Not a slice")
+	}
+}
