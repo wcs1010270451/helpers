@@ -34,7 +34,7 @@ func DoPost(url string, data []byte) ([]byte, error) {
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return body, errors.New(fmt.Sprintf("状态码为 %d", resp.StatusCode))
+		return body, errors.New(fmt.Sprintf("状态码为：%d,错误信息：%s", resp.StatusCode, string(body)))
 	}
 	return body, nil
 }
