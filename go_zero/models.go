@@ -171,4 +171,9 @@ type (
 		Symbol string //符号 可不传，不传默认 =
 		Value  interface{}
 	}
+	ListConditions struct {
+		Pages
+		Conditions []Condition
+		Sorts      []Sort
+	}
 )
